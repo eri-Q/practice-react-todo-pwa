@@ -12,3 +12,27 @@ firebase.initializeApp({
   messagingSenderId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID
 });
+
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+export const auth = firebase.auth();
+
+export const signInWithGoogle = () => {
+  firebase.auth().signInWithPopup(googleProvider)
+    .then((res) => {
+      console.log(res.user);
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+  };
+
+  export const logOut = () => {
+    firebase.auth().signOut()
+      .then(() => {
+        console.log("logged out");
+        document.location.reload();
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
+  }
